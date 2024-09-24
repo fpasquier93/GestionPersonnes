@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GestionPersonnes</name>
+    </assembly>
+    <members>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.AjouterPersonne(GestionPersonnes.Models.Personne)">
+            <summary>
+            Fonction qui ajoute une personne à la BD seulement si 
+            elle a moins de 150 ans.
+            </summary>
+            <param name="personne"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.AjouterEmploi(System.Int32,GestionPersonnes.Models.Emploi)">
+            <summary>
+            Fonction qui sert à ajouter un emplois à une personne.
+            </summary>
+            <param name="id"></param>
+            <param name="emploi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.GetPersonnes">
+            <summary>
+            Fonction qui retourne la liste des personnes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.GetPersonnesCurrentjobs">
+            <summary>
+            Fonction qui retourne par ordre alphabétique de leurs nom puis prénom les personnes 
+            ainsi que leur âge et emploi(s) actuel(s).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.GetPersonnesParEntreprise(System.String)">
+            <summary>
+            Fonction qui renvoient toutes les personnes ayant travaillé pour une entreprise donnée.
+            </summary>
+            <param name="nomEntreprise">Entreprise</param>
+            <returns></returns>
+        </member>
+        <member name="M:GestionPersonnes.Controllers.PersonnesController.GetEmploisParDates(System.Int32,System.DateTime,System.DateTime)">
+            <summary>
+            Fonction qui renvoient tous les emplois d'une personne entre deux plages de dates.
+            </summary>
+            <param name="id">id de la personne concerné</param>
+            <param name="debut">date de début</param>
+            <param name="fin">date de fin</param>
+            <returns></returns>
+        </member>
+        <member name="T:GestionPersonnes.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:GestionPersonnes.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GestionPersonnes.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GestionPersonnes.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

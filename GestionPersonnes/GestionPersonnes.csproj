@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>556c7c43-ee94-4555-a75b-6fa0d638d635</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\florian\source\repos\GestionPersonnes\GestionPersonnes\doc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
