@@ -9,7 +9,7 @@ namespace GestionPersonnes.Controllers
     [Route("[controller]")]
     public class PersonnesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
         public PersonnesController(ApplicationDbContext context)
         {
@@ -50,8 +50,8 @@ namespace GestionPersonnes.Controllers
             {
                 return NotFound("Personne introuvable.");
             }
-
             emploi.PersonneId = id;
+            //emploi.Personne = personne;
             _context.Emplois.Add(emploi);
             await _context.SaveChangesAsync();
             return Ok(emploi);

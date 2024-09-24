@@ -8,5 +8,6 @@
         public DateTime DateDebut { get; set; }
         public DateTime? DateFin { get; set; }
         public int PersonneId { get; set; }
+        public Personne? Personne { get; set; }
     }
 }
