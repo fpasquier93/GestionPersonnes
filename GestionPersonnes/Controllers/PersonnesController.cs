@@ -16,10 +16,16 @@ namespace GestionPersonnes.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Fonction qui ajoute une personne à la BD seulement si 
+        /// elle a moins de 150 ans.
+        /// </summary>
+        /// <param name="personne"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AjouterPersonne([FromBody] Personne personne)
+        public async Task<IActionResult> AjouterPersonne(Personne personne)
         {
-            var age = DateTime.Now.Year - personne.DateNaissance.Year;
+            var age = personne.Age;
             if (age > 150)
             {
                 return BadRequest("La personne doit avoir moins de 150 ans.");
@@ -30,8 +36,14 @@ namespace GestionPersonnes.Controllers
             return Ok(personne);
         }
 
+        /// <summary>
+        /// Fonction qui sert à ajouter un emplois à une personne.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="emploi"></param>
+        /// <returns></returns>
         [HttpPost("{id}/emplois")]
-        public async Task<IActionResult> AjouterEmploi(int id, [FromBody] Emploi emploi)
+        public async Task<IActionResult> AjouterEmploi(int id, Emploi emploi)
         {
             var personne = await _context.Personnes.FindAsync(id);
             if (personne == null)
@@ -45,8 +57,30 @@ namespace GestionPersonnes.Controllers
             return Ok(emploi);
         }
 
+        /// <summary>
+        /// Fonction qui retourne la liste des personnes.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetPersonnes()
+        {
+            var personnes = await _context.Personnes
+                .Include(p => p.Emplois)
+                .OrderBy(p => p.Nom)
+                .ToListAsync();
+
+            var result = personnes;
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Fonction qui retourne par ordre alphabétique de leurs nom puis prénom les personnes 
+        /// ainsi que leur âge et emploi(s) actuel(s).
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("current")]
+        public async Task<IActionResult> GetPersonnesCurrentjobs()
         {
             var personnes = await _context.Personnes
                 .Include(p => p.Emplois)
@@ -61,9 +95,14 @@ namespace GestionPersonnes.Controllers
                 EmploisActuels = p.Emplois.Where(e => !e.DateFin.HasValue)
             });
 
-            return Ok(result);
+            return Ok(result.OrderBy(p => p.Nom).ThenBy(p => p.Prenom));
         }
 
+        /// <summary>
+        /// Fonction qui renvoient toutes les personnes ayant travaillé pour une entreprise donnée.
+        /// </summary>
+        /// <param name="nomEntreprise">Entreprise</param>
+        /// <returns></returns>
         [HttpGet("entreprise/{nomEntreprise}")]
         public async Task<IActionResult> GetPersonnesParEntreprise(string nomEntreprise)
         {
@@ -75,6 +114,13 @@ namespace GestionPersonnes.Controllers
             return Ok(personnes);
         }
 
+        /// <summary>
+        /// Fonction qui renvoient tous les emplois d'une personne entre deux plages de dates.
+        /// </summary>
+        /// <param name="id">id de la personne concerné</param>
+        /// <param name="debut">date de début</param>
+        /// <param name="fin">date de fin</param>
+        /// <returns></returns>
         [HttpGet("{id}/emplois")]
         public async Task<IActionResult> GetEmploisParDates(int id, [FromQuery] DateTime debut, [FromQuery] DateTime fin)
         {
