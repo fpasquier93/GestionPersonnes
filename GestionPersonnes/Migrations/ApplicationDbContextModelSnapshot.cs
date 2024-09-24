@@ -51,7 +51,7 @@ namespace GestionPersonnes.Migrations
 
                     b.HasIndex("PersonneId");
 
-                    b.ToTable("Emplois");
+                    b.ToTable("Emplois", (string)null);
                 });
 
             modelBuilder.Entity("GestionPersonnes.Models.Personne", b =>
@@ -75,7 +75,7 @@ namespace GestionPersonnes.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Personnes");
+                    b.ToTable("Personnes", (string)null);
                 });
 
             modelBuilder.Entity("GestionPersonnes.Models.Emploi", b =>
